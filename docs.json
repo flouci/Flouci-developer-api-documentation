@@ -1,68 +1,52 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mint Starter Kit",
+  "name": "Flouci Payment API",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#EB674A",
+    "light": "#EB674A",
+    "dark": "#EB674A"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "https://app.flouci.com/flouciFavicon.svg",
   "navigation": {
     "tabs": [
       {
-        "tab": "Guides",
+        "tab": "Documentation",
         "groups": [
           {
-            "group": "Getting started",
+            "group": "Introduction",
             "pages": [
-              "index",
-              "quickstart",
-              "development"
+              "introduction",
+              "getting-started/requests",
+              "getting-started/payment-step"
             ]
           },
           {
-            "group": "Customization",
+            "group": "Basic Payment Flows",
             "pages": [
-              "essentials/settings",
-              "essentials/navigation"
+              "api-reference/generate-transaction",
+              "api-reference/verify-transaction"
             ]
           },
           {
-            "group": "Writing content",
+            "group": "Advanced payment flows",
             "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
+              "api-reference/qr-code-payments",
+              "api-reference/payment-orchestration",
+              "api-reference/pre-authorization"
             ]
           },
           {
-            "group": "AI tools",
+            "group": "Partner specific endpoints",
             "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "API reference",
-        "groups": [
-          {
-            "group": "API documentation",
-            "pages": [
-              "api-reference/introduction"
+              "api-reference/partner-payment"
             ]
           },
           {
-            "group": "Endpoint examples",
+            "group": "Environments",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+              "essentials/testing",
+              "essentials/production"
             ]
           }
         ]
@@ -72,38 +56,28 @@
       "anchors": [
         {
           "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
+          "href": "https://docs.flouci.com",
           "icon": "book-open-cover"
         },
         {
           "anchor": "Community",
-          "href": "https://mintlify.com/community",
-          "icon": "slack"
+          "href": "https://facebook.com/flouci__",
+          "icon": "facebook"
         },
         {
           "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
+          "href": "https://fr.flouci.com/company/blogs",
           "icon": "newspaper"
         }
       ]
     }
   },
   "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    "light": "https://cdn.prod.website-files.com/642eb7fb48d9b60d4759b72b/66f2b16ce8f0cae9176456db_logo_default_onWhite-p-800.png",
+    "dark": "https://cdn.prod.website-files.com/642eb7fb48d9b60d4759b72b/66f2b16ce8f0cae9176456db_logo_default_onWhite-p-800.png"
   },
   "navbar": {
-    "links": [
-      {
-        "label": "Support",
-        "href": "mailto:hi@mintlify.com"
-      }
-    ],
-    "primary": {
-      "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
-    }
+    "links": []
   },
   "contextual": {
     "options": [
@@ -119,9 +93,8 @@
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "x": "https://x.com/flouci",
+      "linkedin": "https://www.linkedin.com/company/flouci/"
     }
   }
 }

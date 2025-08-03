@@ -1,0 +1,58 @@
+---
+title: Payment Orchestration
+description: Orchestrate complex payment flows.
+---
+
+This endpoint allows you to orchestrate complex payment flows, by breaking the transaction into multiple destination accounts, for example to account for partner commission, transaction routing, and so on.
+
+<RequestExample>
+```bash cURL
+curl -X POST 'https://developers.flouci.com/api/v2/generate_payment' \
+  -H 'Content-Type: application/json' \
+  -H 'Authorization: <PUBLIC_KEY>:<PRIVATE_KEY>' \
+  -d '{
+    "amount": 1000,
+    "success_link": "https://your-website.com/success",
+    "fail_link": "https://your-website.com/fail",
+    "webhook: "https://your-website.com/webhook",
+    "developer_tracking_id": "YOUR_TRACKING_ID"
+  }'
+```
+</RequestExample>
+
+### Body
+
+<ParamField body="amount" type="integer" required>
+  The amount to be paid in millimes.
+</ParamField>
+<ParamField body="success_link" type="string" required>
+  The URL to redirect the user to after a successful payment.
+</ParamField>
+<ParamField body="fail_link" type="string" required>
+  The URL to redirect the user to after a failed payment.
+</ParamField>
+<ParamField body="fail_link" type="string">
+  The webhook URL you want to receive payment confirmation on.
+</ParamField>
+<ParamField body="developer_tracking_id" type="string">
+  A unique ID for you to track the payment.
+</ParamField>
+
+<ResponseExample>
+```json Success
+{
+  "result": {
+    "payment_id": "a1b2c3d4-e5f6-7890-1234-567890abcdef",
+    "link": "https://flouci.com/pay/a1b2c3d4-e5f6-7890-1234-567890abcdef"
+  }
+}
+```
+```json Error
+{
+  "result": {
+    "status": 400,
+    "message": "Bad Request"
+  }
+}
+```
+</ResponseExample>

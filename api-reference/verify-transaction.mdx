@@ -1,0 +1,60 @@
+---
+title: Verify Payment
+description: Verify the status of a payment.
+---
+
+This endpoint allows you to check the status of a payment using the `payment_id` returned by the Generate Payment endpoint.
+
+<RequestExample>
+```bash cURL
+curl -X GET 'https://developers.flouci.com/api/v2/verify_payment/{payment_id}' \
+  -H 'authorization: <APP_PUBLIC>:<APP_SECRET>' \
+```
+</RequestExample>
+
+### Path Parameters
+
+<ParamField path="payment_id" type="string" required>
+  The ID of the payment to verify.
+</ParamField>
+
+
+<ResponseExample>
+```json Success
+{
+    "success": true,
+    "result": {
+        "type": "card",
+        "amount": 1250,
+        "status": "SUCCESS",
+        "details": {
+            "order_number": "Pb3pNSdyRRWOBdXHDTEdBw",
+            "name": "FOULEN BEN FOULEN",
+            "pan": "450921**1119",
+            "payment_system": "VISA",
+            "expiration": "202612",
+            "approval_code": "182848",
+            "currency": "788",
+            "phone_number": "",
+            "email": "",
+            "bank_country_code": "",
+            "destinations": []
+        },
+        "developer_tracking_id": "your_internal_tracking_id"
+    },
+    "status_code": 200,
+    "name": "developers",
+    "code": 0,
+    "version": "2.0.0"
+}
+```
+```json Error
+{
+  "result": {
+    "status": 404,
+    "message": "Payment not found"
+  }
+}
+```
+</ResponseExample>
+

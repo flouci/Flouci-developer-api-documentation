@@ -1,0 +1,24 @@
+---
+title: Payment Steps
+description: Learn about the payment step in the Flouci payment process.
+---
+
+The Flouci web payment solution is based on a redirection mechanism. The user is redirected to a payment page, where they can pay with one of the payment methods activated by the merchant (Flouci wallet, bank card/e-dinar, other wallet, etc.).
+
+Based on the transaction outcome, the user is redirected to the merchant's site using the `success_link` or `fail_link` variables. Additionally, an optional `webhook` field enables the Flouci system to notify the partner server-to-server when a transaction is complete, ensuring reliability in cases of network issues and providing a more comprehensive payment handling system.
+
+
+<Steps>
+  <Step title="Initiate Payment">
+    <p>To start a payment, the merchant must generate a payment request using the Flouci API. This involves specifying the amount, currency, and other transaction details.</p>
+  </Step>
+  <Step title="Redirect to Payment Page">
+    <p>Once the payment request is generated, redirect the user to the Flouci payment page. The user can choose their preferred payment method and complete the transaction.</p>
+  </Step>
+  <Step title="Handle Transaction Outcome">
+    <p>After the transaction, the user is redirected back to the merchant's site using the `success_link` or `fail_link`. Additionally, configure a webhook to receive server-to-server notifications for transaction completions.</p>
+  </Step>
+</Steps>
+
+
+

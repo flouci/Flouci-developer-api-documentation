@@ -1,0 +1,69 @@
+---
+title: Generate Payment
+description: Generate a new payment and get a redirection link for the user to complete the payment in.
+---
+
+This endpoint creates a new payment and returns a URL to redirect the user to for completing the payment.
+
+<RequestExample>
+```bash cURL
+curl -X POST 'https://developers.flouci.com/api/generate_payment' \
+  -H 'Content-Type: application/json' \
+  -H 'Authorization: <PUBLIC_KEY>:<PRIVATE_KEY>' \
+  -d '{
+    "amount": 1000,
+    "success_link": "https://your-website.com/success",
+    "fail_link": "https://your-website.com/fail",
+    "webhook": "https://your-website.com/webhook",
+    "developer_tracking_id": "<YOUR_TRACKING_ID>"
+  }'
+```
+</RequestExample>
+
+### Body
+
+<ParamField body="amount" type="integer" required>
+  The amount to be paid in millimes.
+</ParamField>
+<ParamField body="success_link" type="string" required>
+  The URL to redirect the user to after a successful payment.
+</ParamField>
+<ParamField body="fail_link" type="string" required>
+  The URL to redirect the user to after a failed payment.
+</ParamField>
+<ParamField body="fail_link" type="string">
+  The webhook URL you want to receive payment confirmation on.
+</ParamField>
+<ParamField body="developer_tracking_id" type="string">
+  A unique ID for you to track the payment.
+</ParamField>
+<ParamField body="session_timeout_secs" type="integer" default="1200">
+  The session timeout in seconds.
+</ParamField>
+<ParamField body="accept_card" type="boolean" default="true">
+  Whether to accept card payments.
+</ParamField>
+
+<ResponseExample>
+```json Success
+{
+  "result": {
+    "success": True,
+    "payment_id": "FoPKKHqfQIKfBqhEj8M47A",
+    "link": "https://flouci.com/pay/FoPKKHqfQIKfBqhEj8M47A",
+    "developer_tracking_id": "<DEVELOPER_TRACKING_ID>
+  },
+  "name": "developers",
+  "code": 0,
+  "version": "v2"
+}
+```
+```json Error
+{
+  "result": {
+    "status": 400,
+    "message": "Bad Request"
+  }
+}
+```
+</ResponseExample>
