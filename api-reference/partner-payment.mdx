@@ -1,7 +1,239 @@
 ---
-title: Partner APIs
-description: Custom integrations made for partners to embed Flouci's payment systems in their apps
+title: Native Wallet Payments
+description: Endpoints for partners to manage user accounts and transactions.
 ---
 
+## Initiate Account Linking
 
-For custom API integrations, please reach out to dev-support@flouci.com with your specific use case so we can whitelist the necessary APIs for your application.
+This endpoint initiates the process of linking a customer's Flouci wallet to their partner account by sending an OTP code.
+
+<CodeGroup>
+```bash cURL
+curl -X POST 'https://developers.flouci.com/partners/accounts/initiate_link_account' \
+  -H 'Authorization: Bearer <APP_PUBLIC>:<APP_SECRET>' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "phone_number": "55555555"
+  }'
+```
+</CodeGroup>
+
+### Body
+
+<ParamField body="phone_number" type="string" required>
+  The customer's phone number (MSSDN).
+</ParamField>
+
+<ResponseExample>
+```json 200
+{
+  "success": true,
+  "session_id": "ad4ead7c-c3e9-4531-b678-dcb8b68ba166",
+  "name": "Foulen Ben Foulen",
+  "phone_number": "55555555",
+  "message": "Verification code is sent to: "
+}
+```
+</ResponseExample>
+
+---
+
+## Confirm Account Linking
+
+---
+
+## Authenticate Session
+
+This endpoint creates a short-lived session token for the user to access wallet functionalities.
+
+<CodeGroup>
+```bash cURL
+curl -X POST '@IP/api/accounts/authenticate' \
+  -H 'Authorization: Api-Key <' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "tracking_id": "5a3c7b16-f197-474a-b1b3-e3bcb96690e5",
+    "phone_number": "55555555"
+  }'
+```
+</CodeGroup>
+
+### Body
+
+<ParamField body="tracking_id" type="uuid" required>
+  The unique user identifier from the confirm linking step.
+</ParamField>
+<ParamField body="phone_number" type="string" required>
+  The customer's phone number (MSSDN).
+</ParamField>
+
+<ResponseExample>
+```json 200
+{
+  "success": true,
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "expires_in": 300,
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+}
+```
+</ResponseExample>
+
+---
+
+## Refresh Session
+
+This endpoint generates a new access token after the previous one has expired.
+
+<CodeGroup>
+```bash cURL
+curl -X GET '@IP/api/accounts/authenticate/refresh' \
+  -H 'Authorization: Bearer YOUR_REFRESH_TOKEN'
+```
+</CodeGroup>
+
+<ResponseExample>
+```json 200
+{
+  "success": true,
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "expires_in": 300
+}
+```
+</ResponseExample>
+
+---
+
+## Get Balance
+
+This endpoint allows the user to check their wallet balance in millimes.
+
+<CodeGroup>
+```bash cURL
+curl -X GET '@IP/partners/v1/transactions/balance?phone_number=55555555&tracking_id=602e300d-bee8-49a6-b5b7-438912669a27' \
+  -H 'Authorization: Bearer <APP_PUBLIC>:<APP_SECRET>'
+```
+</CodeGroup>
+
+### Query Parameters
+
+<ParamField query="phone_number" type="string" required>
+  The customer's phone number (MSSDN).
+</ParamField>
+<ParamField query="tracking_id" type="uuid" required>
+  The unique user identifier.
+</ParamField>
+
+<ResponseExample>
+```json 200
+{
+  "success": true,
+  "wallet_id": "2131239123891028390",
+  "balance_in_millimes": 1387410
+}
+```
+</ResponseExample>
+
+---
+
+## Get History
+
+This endpoint allows you to view the customer's transaction history from the partner application.
+
+<CodeGroup>
+```bash cURL
+curl -X GET '@IP/partners/v1/transactions/history?phone_number=55555555&tracking_id=602e300d-bee8-49a6-b5b7-438912669a27' \
+  -H 'Authorization: Bearer <APP_PUBLIC>:<APP_SECRET>'
+```
+</CodeGroup>
+
+### Query Parameters
+
+<ParamField query="phone_number" type="string" required>
+  The customer's phone number (MSSDN).
+</ParamField>
+<ParamField query="tracking_id" type="uuid" required>
+  The unique user identifier.
+</ParamField>
+<ParamField query="from" type="datetime">
+  Start date to filter history (ISO 8601 format).
+</ParamField>
+<ParamField query="to" type="datetime">
+  End date to filter history (ISO 8601 format).
+</ParamField>
+<ParamField query="page" type="integer">
+  Page number.
+</ParamField>
+<ParamField query="size" type="integer">
+  Number of items per page (max 10000).
+</ParamField>
+
+<ResponseExample>
+```json 200
+{
+  "count": 2,
+  "next": null,
+  "previous": null,
+  "results": [
+    {
+      "operation_id": "906178af-6cb0-4fdb-be76-519199b6c679",
+      "sender": "99142989",
+      "status": "Approved",
+      "time_created": "2025-02-23T23:00:46.294232+01:00",
+      "payload": {
+        "blockchain_ref": "5B935D",
+        "operation_type": "PAYMENT",
+        "product": "001"
+      }
+    }
+  ]
+}
+```
+</ResponseExample>
+
+---
+
+## Initiate Payment
+
+This endpoint allows the user to pay for a service.
+
+<CodeGroup>
+```bash cURL
+curl -X POST '@IP/partners/v1/transactions/initiate_payment' \
+  -H 'Authorization: Bearer <APP_PUBLIC>:<APP_SECRET>' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "phone_number": "55555555",
+    "tracking_id": "602e300d-bee8-49a6-b5b7-438912669a27",
+    "amount_in_millimes": "1000",
+    "product": "001"
+  }'
+```
+</CodeGroup>
+
+### Body
+
+<ParamField body="phone_number" type="string" required>
+  The customer's phone number (MSSDN).
+</ParamField>
+<ParamField body="tracking_id" type="uuid" required>
+  The unique user identifier.
+</ParamField>
+<ParamField body="amount_in_millimes" type="integer" required>
+  The transaction amount in millimes.
+</ParamField>
+<ParamField body="product" type="string" required>
+  Product code (e.g., `001`).
+</ParamField>
+<ParamField body="webhook" type="string">
+  Webhook URL to notify transaction status.
+</ParamField>
+
+<ResponseExample>
+```json 201
+{
+  "success": true,
+  "hash": "AB31047652EEA9B923C6BC931EB989A5BE13442D9DAC09920513A6022F6067A9",
+  "blockchain_ref": "AB3104"
+}
+```
+</ResponseExample>

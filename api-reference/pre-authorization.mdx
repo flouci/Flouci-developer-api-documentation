@@ -3,6 +3,10 @@ title: Pre-Authorization
 description: Pre-authorize a payment to be captured later.
 ---
 
+Pre-Authorization is a payment process where a cardholder's funds are temporarily held to ensure the availability of the specified amount for a future transaction. This process involves verifying the card details and reserving the funds without actually transferring them, allowing merchants to confirm the card's validity and the customer's ability to pay. 
+
+Once the pre-authorization is approved, the funds are earmarked and can be captured later when the final transaction is completed, providing flexibility and security for both merchants and customers in managing payments.
+
 ## Initiate Pre-Authorization
 
 This endpoint initiates a pre-authorization for a payment.
@@ -11,9 +15,8 @@ This endpoint initiates a pre-authorization for a payment.
 ```bash cURL
 curl -X POST 'https://developers.flouci.com/api/generate_payment' \
   -H 'Content-Type: application/json' \
+  -H 'Authorization: <PUBLIC_KEY>:<PRIVATE_KEY>' \
   -d '{
-    "app_token": "<YOUR_APP_TOKEN>",
-    "app_secret": "<YOUR_APP_SECRET>",
     "amount": 1000,
     "success_link": "https://your-website.com/success",
     "fail_link": "https://your-website.com/fail",
@@ -35,7 +38,7 @@ curl -X POST 'https://developers.flouci.com/api/generate_payment' \
 <ParamField body="fail_link" type="string" required>
   The URL to redirect the user to after a failed payment.
 </ParamField>
-<ParamField body="fail_link" type="string">
+<ParamField body="webhook" type="string">
   The webhook URL you want to receive payment confirmation on.
 </ParamField>
 <ParamField body="developer_tracking_id" type="string">
@@ -66,9 +69,8 @@ This endpoint confirms a pre-authorized payment.
 ```bash cURL
 curl -X POST 'https://developers.flouci.com/api/v2/confirm_payment' \
   -H 'Content-Type: application/json' \
+  -H 'Authorization: <PUBLIC_KEY>:<PRIVATE_KEY>' \
   -d '{
-    "app_token": "YOUR_APP_TOKEN",
-    "app_secret": "YOUR_APP_SECRET",
     "payment_id": "a1b2c3d4-e5f6-7890-1234-567890abcdef"
   }'
 ```
@@ -76,12 +78,6 @@ curl -X POST 'https://developers.flouci.com/api/v2/confirm_payment' \
 
 ### Body
 
-<ParamField body="app_token" type="string" required>
-  Your application's public token.
-</ParamField>
-<ParamField body="app_secret" type="string" required>
-  Your application's secret key.
-</ParamField>
 <ParamField body="payment_id" type="string" required>
   The ID of the payment to confirm.
 </ParamField>
@@ -106,9 +102,8 @@ This endpoint cancels a pre-authorized payment.
 ```bash cURL
 curl -X POST 'https://developers.flouci.com/api/v2/cancel_payment' \
   -H 'Content-Type: application/json' \
+  -H 'Authorization: <PUBLIC_KEY>:<PRIVATE_KEY>' \
   -d '{
-    "app_token": "YOUR_APP_TOKEN",
-    "app_secret": "YOUR_APP_SECRET",
     "payment_id": "a1b2c3d4-e5f6-7890-1234-567890abcdef"
   }'
 ```
@@ -116,12 +111,6 @@ curl -X POST 'https://developers.flouci.com/api/v2/cancel_payment' \
 
 ### Body
 
-<ParamField body="app_token" type="string" required>
-  Your application's public token.
-</ParamField>
-<ParamField body="app_secret" type="string" required>
-  Your application's secret key.
-</ParamField>
 <ParamField body="payment_id" type="string" required>
   The ID of the payment to cancel.
 </ParamField>

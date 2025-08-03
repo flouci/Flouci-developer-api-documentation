@@ -3,7 +3,7 @@ title: Test Environment
 description: Learn how to use the test environment.
 ---
 
-With each developer account, you will automatically have a test application called **TEST APP**. You can use the `app_token` and `app_secret` of the test app during the integration of the payment on your site.
+With each developer account, you will automatically have a test application called **TEST APP**. You can use the `PUBLIC_KEY` and `PRIVATE_KEY` of the test app during the integration of the payment on your site.
 
 ### Wallet Payments
 
@@ -16,3 +16,5 @@ To test payments by bank/postal card, use the card number `4242 4242 4242 4242` 
 ### Transaction Verification
 
 In the test environment, `verify_payment` keeps the transaction status information for 20 minutes. You can check the status of the transaction with the `payment_id` during this period to finalize the integration on your website.
+
+In the test environment, the information is not visible in any dashboard, and is accessible via API only. Once you move to production keys, all transactions can be monitored in real-time via our web interface https://app.flouci.com. 

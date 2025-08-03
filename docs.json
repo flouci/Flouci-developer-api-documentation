@@ -31,22 +31,24 @@
           {
             "group": "Advanced payment flows",
             "pages": [
-              "api-reference/qr-code-payments",
               "api-reference/payment-orchestration",
               "api-reference/pre-authorization"
             ]
           },
           {
-            "group": "Partner specific endpoints",
+            "group": "Partner APIs",
             "pages": [
-              "api-reference/partner-payment"
+              "api-reference/qr-code-payments",
+              "api-reference/partner-payment",
+              "api-reference/pos-payment-integration"
             ]
           },
           {
             "group": "Environments",
             "pages": [
               "essentials/testing",
-              "essentials/production"
+              "essentials/production",
+              "essentials/debug-support"
             ]
           }
         ]

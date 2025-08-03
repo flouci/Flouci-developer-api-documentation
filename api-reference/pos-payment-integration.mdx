@@ -1,0 +1,92 @@
+---
+title: POS Payment Integrations
+description: Initiate and verify payments using Flouci's POS devices, from your external system.
+---
+
+## Initiate POS Transaction
+
+This endpoint allows a user to create and send a transaction to a POS terminal.
+
+<CodeGroup>
+```bash cURL
+curl -X POST 'https://developers.flouci.com/api/transactions/init_pos_transaction' \
+  -H 'Authorization: Bearer <APP_PUBLIC>:<APP_SECRET>' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "id_terminal": "terminal",
+    "serial_number": "SN123456",
+    "amount_in_millimes": 1000,
+    "payment_method": "WALLET",
+    "developer_tracking_id": "dev_track_123"
+  }'
+```
+</CodeGroup>
+
+### Body
+
+<ParamField body="id_terminal" type="string" required>
+  Unique identifier of the POS terminal.
+</ParamField>
+<ParamField body="serial_number" type="string" required>
+  Serial number of the POS terminal.
+</ParamField>
+<ParamField body="amount_in_millimes" type="integer" required>
+  Transaction amount in millimes.
+</ParamField>
+<ParamField body="payment_method" type="string" required>
+  Payment method (NFC, CARD, WALLET, CHECK).
+</ParamField>
+<ParamField body="developer_tracking_id" type="string" required>
+  Unique transaction ID from the partner system.
+</ParamField>
+<ParamField body="webhook" type="string">
+  Webhook URL to notify transaction status.
+</ParamField>
+
+<ResponseExample>
+```json 201
+{
+  "success": true,
+  "terminal_id": "testing1234",
+  "status_code": 201
+}
+```
+</ResponseExample>
+
+---
+
+## Get POS Transaction Status
+
+This endpoint retrieves the status of a POS transaction.
+
+<CodeGroup>
+```bash cURL
+curl -X GET 'https://developers.flouci.com/api/transactions/get_pos_transaction_status?developer_tracking_id=dev_track_123' \
+  -H 'Authorization: Bearer <APP_PUBLIC>:<APP_SECRET>'
+```
+</CodeGroup>
+
+### Query Parameters
+
+<ParamField query="flouci_transaction_id" type="uuid">
+  Unique transaction ID from Flouci.
+</ParamField>
+<ParamField query="developer_tracking_id" type="string">
+  Unique transaction ID from the partner system.
+</ParamField>
+
+<ResponseExample>
+```json 200
+{
+  "success": true,
+  "transactions": [
+    {
+      "developer_tracking_id": "7cd66b29-a8b7-4e4c-aedf-0d98eeb92703",
+      "payment_status": "PS",
+      "transaction_id": "1b7b29df-6826-4b33-b5a6-fb86fcc15e5c"
+    }
+  ],
+  "status_code": 200
+}
+```
+</ResponseExample>
