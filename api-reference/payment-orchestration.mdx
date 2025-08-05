@@ -9,13 +9,13 @@ This endpoint allows you to orchestrate complex payment flows, by breaking the t
 ```bash cURL
 curl -X POST 'https://developers.flouci.com/api/v2/generate_payment' \
   -H 'Content-Type: application/json' \
-  -H 'Authorization: <PUBLIC_KEY>:<PRIVATE_KEY>' \
+  -H 'Authorization: Bearer <PUBLIC_KEY>:<PRIVATE_KEY>' \
   -d '{
     "amount": 1000,
     "success_link": "https://your-website.com/success",
     "fail_link": "https://your-website.com/fail",
     "webhook": "https://your-website.com/webhook",
-    "developer_tracking_id": "YOUR_TRACKING_ID"
+    "developer_tracking_id": "<YOUR_TRACKING_ID>"
   }'
 ```
 </RequestExample>

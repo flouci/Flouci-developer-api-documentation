@@ -7,9 +7,9 @@ This endpoint creates a new payment and returns a URL to redirect the user to fo
 
 <RequestExample>
 ```bash cURL
-curl -X POST 'https://developers.flouci.com/api/generate_payment' \
+curl -X POST 'https://developers.flouci.com/api/v2/generate_payment' \
   -H 'Content-Type: application/json' \
-  -H 'Authorization: <PUBLIC_KEY>:<PRIVATE_KEY>' \
+  -H 'Authorization: Bearer <PUBLIC_KEY>:<PRIVATE_KEY>' \
   -d '{
     "amount": 1000,
     "success_link": "https://your-website.com/success",

@@ -7,12 +7,12 @@ The Flouci Payment API is built on REST principles and requires all requests to 
 
 ## Authentication
 
-To authenticate your requests, you must include an `Authorization` header in every API call. The value of this header should be your `public_key` and `secret_key` joined by a colon, in the following format: `<PUBLIC_KEY>:<PRIVATE_KEY>`
+To authenticate your requests, you must include an `Authorization` header in every API call. The value of this header should be your `public_key` and `secret_key` joined by a colon, in the following format: `Bearer <PUBLIC_KEY>:<PRIVATE_KEY>`
 
 <RequestExample>
 ```bash cURL
 curl -X POST '@IP/api/v2/generate_payment' \
   -H 'Content-Type: application/json' \
-  -H 'Authorization: <PUBLIC_KEY>:<PRIVATE_KEY>' \
+  -H 'Authorization: Bearer <PUBLIC_KEY>:<PRIVATE_KEY>' \
 ```
 </RequestExample>

@@ -13,9 +13,9 @@ This endpoint initiates a pre-authorization for a payment.
 
 <RequestExample>
 ```bash cURL
-curl -X POST 'https://developers.flouci.com/api/generate_payment' \
+curl -X POST 'https://developers.flouci.com/api/v2/generate_payment' \
   -H 'Content-Type: application/json' \
-  -H 'Authorization: <PUBLIC_KEY>:<PRIVATE_KEY>' \
+  -H 'Authorization: Bearer <PUBLIC_KEY>:<PRIVATE_KEY>' \
   -d '{
     "amount": 1000,
     "success_link": "https://your-website.com/success",
@@ -69,7 +69,7 @@ This endpoint confirms a pre-authorized payment.
 ```bash cURL
 curl -X POST 'https://developers.flouci.com/api/v2/confirm_payment' \
   -H 'Content-Type: application/json' \
-  -H 'Authorization: <PUBLIC_KEY>:<PRIVATE_KEY>' \
+  -H 'Authorization: Bearer <PUBLIC_KEY>:<PRIVATE_KEY>' \
   -d '{
     "payment_id": "a1b2c3d4-e5f6-7890-1234-567890abcdef"
   }'
@@ -102,7 +102,7 @@ This endpoint cancels a pre-authorized payment.
 ```bash cURL
 curl -X POST 'https://developers.flouci.com/api/v2/cancel_payment' \
   -H 'Content-Type: application/json' \
-  -H 'Authorization: <PUBLIC_KEY>:<PRIVATE_KEY>' \
+  -H 'Authorization: Bearer <PUBLIC_KEY>:<PRIVATE_KEY>' \
   -d '{
     "payment_id": "a1b2c3d4-e5f6-7890-1234-567890abcdef"
   }'
