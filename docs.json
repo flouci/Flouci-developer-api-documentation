@@ -44,6 +44,12 @@
             ]
           },
           {
+            "group": "Plugins",
+            "pages": [
+              "plugins/plugins"
+            ]
+          },
+          {
             "group": "Environments",
             "pages": [
               "essentials/testing",
